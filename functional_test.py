@@ -37,7 +37,8 @@ class NewVisiterTest(unittest.TestCase):
 			any(row.text == '1: By peacock feathers' for row in rows)
 		)
 
-		# Need to add more tests. 
+		# Need to add more tests. 		# He is invited to enter todo entries.
+
 		self.Fail
 		
 
