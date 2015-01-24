@@ -27,21 +27,28 @@ class NewVisiterTest(unittest.TestCase):
 		)
 
 		# He types 'Buy peacock feathers'
-		inputbox.send_keys('Buy peackock feathers')
+		inputbox.send_keys('Buy peacock feathers')
 
 		#Upon hitting enter, the page updates and lists the first todo item in the list.
 		inputbox.send_keys(Keys.ENTER)
-
 		table= self.browser.find_element_by_id('id_list_table')
 		rows = table.find_elements_by_tag_name('tr')
-		self.assertTrue(
-			any(row.text == '1: By peacock feathers' for row in rows),
-			"New to-do item did not appear in table"
-		)
+		self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+
+		# The user adds a second item.
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		inputbox.send_keys('Use peacock feathers to make a fly')
+		inputbox.send_keys(Keys.ENTER)
+
+		table = self.browser.find_element_by_id('id_list_table')
+		rows = table.find_elements_by_tag_name('tr')
+		self.assertIn('1: Buy peacock feathers', [row.text for row in rows])
+		self.assertIn('2: Use peacock feathers to make a fly', [row.text for row in rows])
+
 
 		# Need to add more tests. 		# He is invited to enter todo entries.
 
-		self.Fail
+		self.fail()
 		
 
 if __name__ == '__main__':
